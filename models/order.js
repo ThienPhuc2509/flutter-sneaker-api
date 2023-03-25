@@ -1,22 +1,24 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const UserSchema = new Schema(
+const OrderSchema = new Schema(
   {
     username: {
       type: String,
       required: true,
     },
-    password: {
+    address: {
       type: String,
       required: true,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
+    orderDetails: {
+      type: Array,
+    },
+    total: {
+      type: String,
     },
   },
   { timestamps: true }
 );
 
-export default mongoose.model("User", UserSchema);
+export default mongoose.model("Order", OrderSchema);
