@@ -5,7 +5,7 @@ import {
   deleteCategory,
   getCategory,
   get,
-} from "../controller/categoryController.js";
+} from "../controllers/categoryController.js";
 import { verifyAdmin } from "../utils/verifyToken.js";
 
 const router = express.Router();

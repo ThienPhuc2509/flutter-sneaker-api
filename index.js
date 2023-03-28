@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 
-import foodRoute from "./routes/food.js";
+import productRoute from "./routes/product.js";
 import categoryRoute from "./routes/category.js";
 import userRoute from "./routes/user.js";
 import authRoute from "./routes/auth.js";
@@ -24,11 +24,11 @@ const connect = async () => {
   }
 };
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "http://localhost:8080", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api/food", foodRoute);
+app.use("/api/product", productRoute);
 app.use("/api/category", categoryRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
