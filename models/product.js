@@ -2,30 +2,31 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const ProductSchema = new Schema({
-  name: {
+  title: {
     type: String,
     required: true,
   },
   brand: {
-    type: Array,
+    type: String,
   },
   size: {
     type: Array,
   },
-  desc: {
+  description: {
     type: String,
   },
-  img: {
+  image: {
     type: String,
     default: "",
   },
   price: {
-    type: String,
+    type: Number,
   },
   quantity: {
     type: Number,
     default: 0,
   },
+
 });
 
 export default mongoose.model("Product", ProductSchema);
