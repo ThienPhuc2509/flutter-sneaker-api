@@ -1,11 +1,9 @@
 import express from "express";
-import multer from "multer";
-import path from "path";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import mongoose from "mongoose";
-
+import helmet from "helmet";
 import productRoute from "./routes/product.js";
 import categoryRoute from "./routes/category.js";
 import userRoute from "./routes/user.js";
@@ -26,6 +24,7 @@ const connect = async () => {
 
 app.use(cors({ origin: "http://localhost:8080", credentials: true }));
 app.use(express.json());
+app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cookieParser());
 
 app.use("/api/product", productRoute);
@@ -44,7 +43,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(8800, () => {
+app.listen(process.env.PORT, () => {
   connect();
-  console.log("Connected to backend.");
+  console.log(`Example app listening on port ${process.env.PORT}`);
 });
