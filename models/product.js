@@ -26,7 +26,10 @@ const ProductSchema = new Schema({
     type: Number,
     default: 0,
   },
-
+  state: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 export default mongoose.model("Product", ProductSchema);

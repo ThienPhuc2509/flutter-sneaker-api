@@ -66,6 +66,7 @@ export const get = async (req, res, next) => {
         brand: {
           $in: [qBrand],
         },
+        
       });
     } else {
       products = await Product.find();
