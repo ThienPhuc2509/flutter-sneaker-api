@@ -4,6 +4,8 @@ import {
   deleteUser,
   getUser,
   getUsers,
+  addToCart,
+  removeFromCart,
 } from "../controllers/userController.js";
 import { verifyAdmin, verifyToken, verifyUser } from "../utils/verifyToken.js";
 
@@ -20,5 +22,9 @@ router.get("/:id", verifyUser, getUser);
 
 //GET ALL
 router.get("/", verifyAdmin, getUsers);
+
+router.post("/add-to-cart", addToCart);
+
+router.delete("/remove-from-cart/:id", removeFromCart);
 
 export default router;

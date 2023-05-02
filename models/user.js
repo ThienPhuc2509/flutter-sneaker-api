@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
+import ProductSchema from "./product.js";
 
 const UserSchema = new Schema(
   {
@@ -21,12 +22,30 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    cart: {
-      type: Array,
-    },
-    favorite: {
-      type: Array,
-    },
+    cart: [
+      {
+        product: {
+          type: Schema.Types.ObjectId,
+          ref: "Product",
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
+    favorite: [
+      {
+        product: {
+          type: Schema.Types.ObjectId,
+          ref: "Product",
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

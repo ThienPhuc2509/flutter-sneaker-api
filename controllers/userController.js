@@ -1,3 +1,4 @@
+import Product from "../models/product.js";
 import User from "../models/user.js";
 
 export const updateUser = async (req, res, next) => {
@@ -28,10 +29,60 @@ export const getUser = async (req, res, next) => {
     next(err);
   }
 };
+
 export const getUsers = async (req, res, next) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const addToCart = async (req, res, next) => {
+  try {
+    const { id } = req.body;
+    const product = await Product.findById(id);
+    let user = await User.findById(req.user);
+
+    const productIndex = user.cart.findIndex((item) =>
+      item.product._id.equals(product._id)
+    );
+    if (productIndex !== -1) {
+      user.cart[productIndex].quantity += 1;
+    } else {
+      user.cart.push({ product, quantity: 1 });
+    }
+
+    user = await user.save();
+    console.log(user);
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const removeFromCart = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findById(id);
+    let user = await User.findById(req.user);
+
+    const productIndex = user.cart.findIndex((item) =>
+      item.product._id.equals(product._id)
+    );
+    if (productIndex !== -1) {
+      if (user.cart[productIndex].quantity == 1) {
+        user.cart = user.cart.filter(
+          (item) => !item.product._id.equals(product._id)
+        );
+      } else {
+        user.cart[productIndex].quantity -= 1;
+      }
+    }
+
+    user = await user.save();
+    res.json(user);
   } catch (err) {
     next(err);
   }
