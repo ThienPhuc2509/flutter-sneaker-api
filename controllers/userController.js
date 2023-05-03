@@ -64,9 +64,10 @@ export const addToCart = async (req, res, next) => {
 
 export const removeFromCart = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const product = await Product.findById(id);
-    let user = await User.findById(req.user);
+    const { productId } = req.params;
+    const { userId } = req.params;
+    const product = await Product.findById(productId);
+    let user = await User.findById(userId);
 
     const productIndex = user.cart.findIndex((item) =>
       item.product._id.equals(product._id)

@@ -25,6 +25,6 @@ router.get("/", verifyAdmin, getUsers);
 
 router.post("/add-to-cart/:id", addToCart);
 
-router.delete("/remove-from-cart/:id", removeFromCart);
+router.delete("/remove-from-cart/:productId/:userId", removeFromCart);
 
 export default router;
