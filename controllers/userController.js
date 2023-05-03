@@ -42,8 +42,12 @@ export const getUsers = async (req, res, next) => {
 export const addToCart = async (req, res, next) => {
   try {
     const { id, size } = req.body;
-    const product = await Product.findById(id);
-    let user = await User.findById(req.params.id);
+    const product = await Product.findById(id).select("title image price");
+    console.log(product);
+    let user = await User.findById(req.params.id).populate({
+      path: "cart.product",
+      select: "title image price",
+    });
 
     const productIndex = user.cart.findIndex(
       (item) => item.product._id.equals(product._id) && item.size === size
@@ -52,14 +56,11 @@ export const addToCart = async (req, res, next) => {
     if (productIndex !== -1) {
       user.cart[productIndex].quantity += 1;
       user.cart[productIndex].product = product;
-      
-      console.log(user.cart[productIndex]);
     } else {
       user.cart.push({ product, quantity: 1, size });
     }
 
     user = await user.save();
-    console.log(user);
     res.json(user);
   } catch (err) {
     next(err);
