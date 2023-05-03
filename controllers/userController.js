@@ -43,7 +43,7 @@ export const addToCart = async (req, res, next) => {
   try {
     const { id } = req.body;
     const product = await Product.findById(id);
-    let user = await User.findById(req.user);
+    let user = await User.findById(req.params.id);
 
     const productIndex = user.cart.findIndex((item) =>
       item.product._id.equals(product._id)
@@ -87,3 +87,7 @@ export const removeFromCart = async (req, res, next) => {
     next(err);
   }
 };
+
+export const addToFavorite = async (req, res, next) => {};
+
+export const removeFromFavorite = async (req, res, next) => {};

@@ -23,7 +23,7 @@ router.get("/:id", verifyUser, getUser);
 //GET ALL
 router.get("/", verifyAdmin, getUsers);
 
-router.post("/add-to-cart", addToCart);
+router.post("/add-to-cart/:id", addToCart);
 
 router.delete("/remove-from-cart/:id", removeFromCart);
 
