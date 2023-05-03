@@ -41,7 +41,7 @@ export const getUsers = async (req, res, next) => {
 
 export const addToCart = async (req, res, next) => {
   try {
-    const { id, size } = req.body;
+    const { id, size, quantity } = req.body;
     const product = await Product.findById(id).select("title image price");
     console.log(product);
     let user = await User.findById(req.params.id).populate({
@@ -54,10 +54,10 @@ export const addToCart = async (req, res, next) => {
     );
 
     if (productIndex !== -1) {
-      user.cart[productIndex].quantity += 1;
+      user.cart[productIndex].quantity += quantity;
       user.cart[productIndex].product = product;
     } else {
-      user.cart.push({ product, quantity: 1, size });
+      user.cart.push({ product, quantity, size });
     }
 
     user = await user.save();
