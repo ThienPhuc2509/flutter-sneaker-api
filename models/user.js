@@ -27,6 +27,11 @@ const UserSchema = new Schema(
         product: {
           type: Schema.Types.ObjectId,
           ref: "Product",
+          required: true,
+          populate: {
+            path: "product",
+            select: "title image price",
+          },
         },
         quantity: {
           type: Number,

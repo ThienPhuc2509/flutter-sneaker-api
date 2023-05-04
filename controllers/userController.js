@@ -23,7 +23,10 @@ export const deleteUser = async (req, res, next) => {
 };
 export const getUser = async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id).populate({
+      path: "cart.product",
+      model: "Product",
+    });
     res.status(200).json(user);
   } catch (err) {
     next(err);
@@ -41,7 +44,6 @@ export const getUsers = async (req, res, next) => {
     next(err);
   }
 };
-
 export const addToCart = async (req, res, next) => {
   try {
     const { id, size, quantity } = req.body;
