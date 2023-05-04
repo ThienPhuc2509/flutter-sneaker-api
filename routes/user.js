@@ -6,6 +6,7 @@ import {
   getUsers,
   addToCart,
   removeFromCart,
+  saveUserAddress,
 } from "../controllers/userController.js";
 import { verifyAdmin, verifyToken, verifyUser } from "../utils/verifyToken.js";
 
@@ -26,5 +27,7 @@ router.get("/", getUsers);
 router.post("/add-to-cart/:id", addToCart);
 
 router.delete("/remove-from-cart/:productId/:userId", removeFromCart);
+
+router.post("/save-user-address/:id", saveUserAddress);
 
 export default router;

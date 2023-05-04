@@ -93,7 +93,7 @@ export const removeFromCart = async (req, res, next) => {
     }
 
     user = await user.save();
-    res.json(user);
+    res.status(200).json(user);
   } catch (err) {
     next(err);
   }
@@ -102,3 +102,23 @@ export const removeFromCart = async (req, res, next) => {
 export const addToFavorite = async (req, res, next) => {};
 
 export const removeFromFavorite = async (req, res, next) => {};
+
+export const saveUserAddress = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    const newAddress = {
+      username: req.body.username,
+      phone: req.body.phone,
+      location: req.body.location,
+    };
+
+    user.address.push(newAddress);
+
+    await user.save();
+
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};

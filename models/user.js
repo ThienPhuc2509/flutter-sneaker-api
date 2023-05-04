@@ -22,6 +22,13 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    address: [
+      {
+        username: { type: String, unique: true },
+        phone: { type: String, unique: true },
+        location: { type: String, unique: true },
+      },
+    ],
     cart: [
       {
         product: {
