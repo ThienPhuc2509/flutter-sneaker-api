@@ -25,7 +25,7 @@ export const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id).populate({
       path: "cart.product",
-      model: "Product",
+      select: "title image price",
     });
     res.status(200).json(user);
   } catch (err) {
