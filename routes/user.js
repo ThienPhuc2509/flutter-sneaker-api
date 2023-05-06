@@ -35,6 +35,6 @@ router.delete("/remove-from-cart/:productId/:userId", removeFromCart);
 
 router.post("/save-user-address/:id", saveUserAddress);
 
-router.put("/update-user-address/:id", updateUserAddress);
+router.put("/update-user-address/:id/:addressId", updateUserAddress);
 
 export default router;

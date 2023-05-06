@@ -126,12 +126,32 @@ export const saveUserAddress = async (req, res, next) => {
 
 export const updateUserAddress = async (req, res, next) => {
   try {
-    const updateUserAddress = await User.findByIdAndUpdate(
-      req.params.id,
-      { $set: req.body },
-      { new: true }
+    const { addressId } = req.params;
+    const { username, phone, location } = req.body;
+
+    const user = await User.findById(req.params.id);
+
+    const address = user.address.find(
+      (address) => address._id.toString() === addressId
     );
-    res.status(200).json(updateUserAddress);
+
+    if (!address) {
+      return res.status(404).json({ msg: "Address not found" });
+    }
+
+    if (username) {
+      address.username = username;
+    }
+    if (phone) {
+      address.phone = phone;
+    }
+    if (location) {
+      address.location = location;
+    }
+
+    await user.save();
+
+    res.status(200).json(address);
   } catch (err) {
     next(err);
   }
