@@ -8,6 +8,8 @@ import productRoute from "./routes/product.js";
 import categoryRoute from "./routes/category.js";
 import userRoute from "./routes/user.js";
 import authRoute from "./routes/auth.js";
+import orderRoute from "./routes/order.js";
+import notificationRoute from "./routes/notification.js";
 
 const app = express();
 dotenv.config();
@@ -31,6 +33,8 @@ app.use("/api/product", productRoute);
 app.use("/api/category", categoryRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
+app.use("/api/order", orderRoute);
+app.use("/api/notification", notificationRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

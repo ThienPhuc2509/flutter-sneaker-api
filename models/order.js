@@ -3,20 +3,18 @@ const { Schema } = mongoose;
 
 const OrderSchema = new Schema(
   {
-    username: {
-      type: String,
-      required: true,
-    },
-    address: {
-      type: String,
-      required: true,
-    },
-    orderDetails: {
-      type: Array,
-    },
-    total: {
-      type: String,
-    },
+    userId: { type: String, required: true },
+    products: [
+      {
+        productId: { type: String },
+        title: { type: String },
+        price: { type: Number },
+        quantity: { type: Number },
+      },
+    ],
+    // subtotal: { type: Number, required: true }, // phí ship
+    total: { type: Number, required: true },
+    shipping: { type: Object, required: true },
   },
   { timestamps: true }
 );

@@ -6,7 +6,7 @@ import {
   getCategory,
   get,
 } from "../controllers/categoryController.js";
-import { verifyAdmin } from "../utils/verifyToken.js";
+import { verifyAdmin } from "../middleware/verifyToken.js";
 
 const router = express.Router();
 
