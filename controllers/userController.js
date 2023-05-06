@@ -13,6 +13,7 @@ export const updateUser = async (req, res, next) => {
     next(err);
   }
 };
+
 export const deleteUser = async (req, res, next) => {
   try {
     await User.findByIdAndDelete(req.params.id);
@@ -120,5 +121,18 @@ export const saveUserAddress = async (req, res, next) => {
     res.status(200).json(user);
   } catch (error) {
     next(error);
+  }
+};
+
+export const updateUserAddress = async (req, res, next) => {
+  try {
+    const updateUserAddress = await User.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    );
+    res.status(200).json(updateUserAddress);
+  } catch (err) {
+    next(err);
   }
 };
