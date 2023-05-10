@@ -22,10 +22,15 @@ export const register = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
   try {
-    const user = await User.findOne({ email: req.body.email }).populate({
-      path: "cart.product",
-      select: "title image price",
-    });
+    const user = await User.findOne({ email: req.body.email })
+      .populate({
+        path: "cart.product",
+        select: "title image price",
+      })
+      .populate({
+        path: "favorite.product",
+        select: "title image price",
+      }); 
     if (!user) return next(createError(404, "User not found!"));
 
     const isPasswordCorrect = await bcrypt.compare(

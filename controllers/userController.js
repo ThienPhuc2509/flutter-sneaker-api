@@ -24,10 +24,15 @@ export const deleteUser = async (req, res, next) => {
 };
 export const getUser = async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id).populate({
-      path: "cart.product",
-      select: "title image price",
-    });
+    const user = await User.findById(req.params.id)
+      .populate({
+        path: "cart.product",
+        select: "title image price",
+      })
+      .populate({
+        path: "favorite.product",
+        select: "title image price",
+      });
     res.status(200).json(user);
   } catch (err) {
     next(err);
@@ -36,10 +41,15 @@ export const getUser = async (req, res, next) => {
 
 export const getUsers = async (req, res, next) => {
   try {
-    const users = await User.find().populate({
-      path: "cart.product",
-      select: "title image price",
-    });
+    const users = await User.find()
+      .populate({
+        path: "cart.product",
+        select: "title image price",
+      })
+      .populate({
+        path: "favorite.product",
+        select: "title image price",
+      });
     res.status(200).json(users);
   } catch (err) {
     next(err);
@@ -117,7 +127,7 @@ export const addToFavorite = async (req, res, next) => {
     if (productIndex !== -1) {
       user.favorite.splice(productIndex, 1);
     } else {
-      user.favorite.push({ product });
+      user.favorite.push({ product, isFavorite: true });
     }
 
     user = await user.save();
