@@ -6,10 +6,16 @@ const OrderSchema = new Schema(
     userId: { type: String, required: true },
     products: [
       {
-        productId: { type: String },
-        title: { type: String },
-        price: { type: Number },
-        quantity: { type: Number },
+        product: {
+          type: Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          default: 0,
+          required: true,
+        },
       },
     ],
     // subtotal: { type: Number, required: true }, // phí ship
