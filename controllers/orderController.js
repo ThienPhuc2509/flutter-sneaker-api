@@ -6,7 +6,7 @@ export const createOrder = async (req, res, next) => {
   try {
     const savedOrder = await newOrder
       .populate({
-        path: "cart.product",
+        path: "products.product",
         select: "title image price",
       })
       .save();
