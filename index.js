@@ -5,7 +5,6 @@ import cors from "cors";
 import mongoose from "mongoose";
 import helmet from "helmet";
 import productRoute from "./routes/product.js";
-import categoryRoute from "./routes/category.js";
 import userRoute from "./routes/user.js";
 import authRoute from "./routes/auth.js";
 import orderRoute from "./routes/order.js";
@@ -30,7 +29,6 @@ app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cookieParser());
 
 app.use("/api/product", productRoute);
-app.use("/api/category", categoryRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/order", orderRoute);
