@@ -10,6 +10,8 @@ export const createOrder = async (req, res, next) => {
     });
 
     const savedOrder = await populatedOrder.save();
+    const userId = req.body.userId;
+    await User.findByIdAndUpdate(userId, { cart: [] });
 
     res.status(200).json(savedOrder);
   } catch (err) {
