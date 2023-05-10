@@ -1,7 +1,10 @@
 import Order from "../models/order.js";
 
 export const createOrder = async (req, res, next) => {
-  const newOrder = new Order(req.body);
+  const newOrder = new Order(req.body).populate({
+    path: "cart.product",
+    select: "title image price",
+  });
 
   try {
     const savedOrder = await newOrder.save();
