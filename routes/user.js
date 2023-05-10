@@ -8,6 +8,7 @@ import {
   removeFromCart,
   saveUserAddress,
   updateUserAddress,
+  addToFavorite,
 } from "../controllers/userController.js";
 import {
   verifyAdmin,
@@ -32,6 +33,8 @@ router.get("/", getUsers);
 router.post("/add-to-cart/:id", addToCart);
 
 router.delete("/remove-from-cart/:productId/:userId", removeFromCart);
+
+router.post("/add-to-favorite/:id", addToFavorite);
 
 router.post("/save-user-address/:id", saveUserAddress);
 

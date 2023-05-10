@@ -49,7 +49,7 @@ export const addToCart = async (req, res, next) => {
   try {
     const { id, size, quantity } = req.body;
     const product = await Product.findById(id).select("title image price");
-    console.log(product);
+
     let user = await User.findById(req.params.id).populate({
       path: "cart.product",
       select: "title image price",
@@ -100,7 +100,32 @@ export const removeFromCart = async (req, res, next) => {
   }
 };
 
-export const addToFavorite = async (req, res, next) => {};
+export const addToFavorite = async (req, res, next) => {
+  try {
+    const { id } = req.body;
+    const product = await Product.findById(id).select("title image price");
+
+    let user = await User.findById(req.params.id).populate({
+      path: "favorite.product",
+      select: "title image price",
+    });
+
+    const productIndex = user.favorite.findIndex((item) =>
+      item.product._id.equals(product._id)
+    );
+
+    if (productIndex !== -1) {
+      user.favorite.splice(productIndex, 1);
+    } else {
+      user.favorite.push({ product });
+    }
+
+    user = await user.save();
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+};
 
 export const removeFromFavorite = async (req, res, next) => {};
 
