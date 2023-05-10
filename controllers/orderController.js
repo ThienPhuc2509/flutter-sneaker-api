@@ -4,12 +4,13 @@ export const createOrder = async (req, res, next) => {
   const newOrder = new Order(req.body);
 
   try {
-    const savedOrder = await newOrder
-      .populate({
-        path: "products.product",
-        select: "title image price",
-      })
-      .save();
+    const populatedOrder = await newOrder.populate({
+      path: "products.product",
+      select: "title image price",
+    });
+
+    const savedOrder = await populatedOrder.save();
+
     res.status(200).json(savedOrder);
   } catch (err) {
     next(err);
