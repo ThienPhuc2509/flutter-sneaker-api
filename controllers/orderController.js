@@ -1,4 +1,5 @@
 import Order from "../models/order.js";
+import User from "../models/user.js";
 
 export const createOrder = async (req, res, next) => {
   const newOrder = new Order(req.body);
