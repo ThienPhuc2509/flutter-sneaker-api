@@ -1,5 +1,6 @@
 import Product from "../models/product.js";
 import User from "../models/user.js";
+import bcrypt from "bcryptjs";
 
 export const updateUser = async (req, res, next) => {
   try {
