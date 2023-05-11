@@ -8,6 +8,7 @@ export const updateUser = async (req, res, next) => {
       { $set: req.body },
       { new: true }
     );
+    console.log(updatedUser);
     res.status(200).json(updatedUser);
   } catch (err) {
     next(err);
