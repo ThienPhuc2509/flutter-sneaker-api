@@ -52,7 +52,10 @@ export const deleteOrder = async (req, res, next) => {
 
 export const getUserOrder = async (req, res, next) => {
   try {
-    const orders = await Order.find({ userId: req.params.id });
+    const orders = await Order.find({ userId: req.params.id }).populate({
+      path: "products.product",
+      select: "title image price brand state",
+    });
     res.status(200).json(orders);
   } catch (err) {
     res.status(500).json(err);
