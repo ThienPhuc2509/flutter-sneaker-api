@@ -19,7 +19,7 @@ import {
 const router = express.Router();
 
 //UPDATE
-router.put("/:id", verifyUser, updateUser);
+router.put("/:id", updateUser);
 
 //DELETE
 router.delete("/:id", verifyUser, deleteUser);
@@ -39,7 +39,5 @@ router.post("/add-to-favorite/:id", addToFavorite);
 router.post("/save-user-address/:id", saveUserAddress);
 
 router.put("/update-user-address/:id/:addressId", updateUserAddress);
-
-
 
 export default router;
