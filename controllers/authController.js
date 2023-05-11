@@ -25,12 +25,12 @@ export const login = async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email })
       .populate({
         path: "cart.product",
-        select: "title image price",
+        select: "title image price brand state",
       })
       .populate({
         path: "favorite.product",
-        select: "title image price",
-      }); 
+        select: "title image price brand state",
+      });
     if (!user) return next(createError(404, "User not found!"));
 
     const isPasswordCorrect = await bcrypt.compare(

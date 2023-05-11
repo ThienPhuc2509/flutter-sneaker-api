@@ -7,7 +7,7 @@ export const createOrder = async (req, res, next) => {
   try {
     const populatedOrder = await newOrder.populate({
       path: "products.product",
-      select: "title image price",
+      select: "title image price brand state",
     });
 
     const savedOrder = await populatedOrder.save();
@@ -63,7 +63,7 @@ export const getOrder = async (req, res, next) => {
   try {
     const orders = await Order.findById(req.params.id).populate({
       path: "products.product",
-      select: "title image price",
+      select: "title image price brand state",
     });
     res.status(200).json(orders);
   } catch (err) {
@@ -75,7 +75,7 @@ export const get = async (req, res, next) => {
   try {
     const orders = await Order.find().populate({
       path: "products.product",
-      select: "title image price",
+      select: "title image price brand state",
     });
     res.status(200).json(orders);
   } catch (err) {

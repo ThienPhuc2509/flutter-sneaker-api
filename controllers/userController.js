@@ -27,11 +27,11 @@ export const getUser = async (req, res, next) => {
     const user = await User.findById(req.params.id)
       .populate({
         path: "cart.product",
-        select: "title image price",
+        select: "title image price brand state",
       })
       .populate({
         path: "favorite.product",
-        select: "title image price",
+        select: "title image price brand state",
       });
     res.status(200).json(user);
   } catch (err) {
@@ -44,11 +44,11 @@ export const getUsers = async (req, res, next) => {
     const users = await User.find()
       .populate({
         path: "cart.product",
-        select: "title image price",
+        select: "title image price brand state",
       })
       .populate({
         path: "favorite.product",
-        select: "title image price",
+        select: "title image price brand state",
       });
     res.status(200).json(users);
   } catch (err) {
@@ -62,7 +62,7 @@ export const addToCart = async (req, res, next) => {
 
     let user = await User.findById(req.params.id).populate({
       path: "cart.product",
-      select: "title image price",
+      select: "title image price brand state",
     });
 
     const productIndex = user.cart.findIndex(
@@ -117,7 +117,7 @@ export const addToFavorite = async (req, res, next) => {
 
     let user = await User.findById(req.params.id).populate({
       path: "favorite.product",
-      select: "title image price",
+      select: "title image price brand state",
     });
 
     const productIndex = user.favorite.findIndex((item) =>
