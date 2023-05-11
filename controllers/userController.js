@@ -3,13 +3,25 @@ import User from "../models/user.js";
 
 export const updateUser = async (req, res, next) => {
   try {
+    let updatedData = {};
+
+    if (req.body.username) {
+      updatedData.username = req.body.username;
+    }
+
+    if (req.body.password) {
+      const salt = await bcrypt.genSalt(10);
+      updatedData.password = await bcrypt.hash(req.body.password, salt);
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
-      { $set: req.body },
+      { $set: updatedData },
       { new: true }
     );
-    console.log(updatedUser);
+
     res.status(200).json(updatedUser);
+    console.log(updatedUser);
   } catch (err) {
     next(err);
   }
