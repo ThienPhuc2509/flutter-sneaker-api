@@ -30,6 +30,10 @@ const ProductSchema = new Schema({
     type: Boolean,
     default: true,
   },
+  hotSale: {
+    type: Boolean,
+    default:true,
+  }
 });
 
 export default mongoose.model("Product", ProductSchema);

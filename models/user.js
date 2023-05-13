@@ -38,12 +38,10 @@ const UserSchema = new Schema(
         quantity: {
           type: Number,
           default: 0,
-          required: true,
         },
         size: {
           type: Number,
           default: 0,
-          required: true,
         },
       },
     ],

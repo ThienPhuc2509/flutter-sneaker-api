@@ -151,8 +151,6 @@ export const addToFavorite = async (req, res, next) => {
   }
 };
 
-export const removeFromFavorite = async (req, res, next) => {};
-
 export const saveUserAddress = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
