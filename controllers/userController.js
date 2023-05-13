@@ -108,7 +108,7 @@ export const removeFromCart = async (req, res, next) => {
       item.product._id.equals(product._id)
     );
     if (productIndex !== -1) {
-      if (user.cart[productIndex].quantity == 1) {
+      if (user.cart[productIndex].quantity === 1) {
         user.cart = user.cart.filter(
           (item) => !item.product._id.equals(product._id)
         );
