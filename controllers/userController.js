@@ -113,7 +113,8 @@ export const removeFromCart = async (req, res, next) => {
           (item) => !item.product._id.equals(product._id)
         );
       } else {
-        user.cart[productIndex].quantity -= 1;
+        user.cart[productIndex].quantity =
+          parseInt(user.cart[productIndex].quantity) - 1;
       }
     }
 
