@@ -9,6 +9,7 @@ import {
   saveUserAddress,
   updateUserAddress,
   addToFavorite,
+  removeAllQuantityFromCart,
 } from "../controllers/userController.js";
 import {
   verifyAdmin,
@@ -33,6 +34,7 @@ router.get("/", getUsers);
 router.post("/add-to-cart/:id", addToCart);
 
 router.delete("/remove-from-cart/:productId/:userId", removeFromCart);
+router.delete("/remove-all-cart/:productId/:userId", removeAllQuantityFromCart);
 
 router.post("/add-to-favorite/:id", addToFavorite);
 

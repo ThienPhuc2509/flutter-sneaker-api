@@ -117,9 +117,38 @@ export const removeFromCart = async (req, res, next) => {
         user.cart = user.cart.filter(
           (item) => !item.product._id.equals(product._id)
         );
-        console.log(typeof user.cart[productIndex].quantity);
       } else {
         user.cart[productIndex].quantity -= 1;
+      }
+    }
+
+    user = await user.save();
+    res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const removeAllQuantityFromCart = async (req, res, next) => {
+  try {
+    const { productId } = req.params;
+    const { userId } = req.params;
+    const product = await Product.findById(productId).select(
+      "title image price"
+    );
+    let user = await User.findById(userId).populate({
+      path: "cart.product",
+      select: "title image price brand state",
+    });
+
+    const productIndex = user.cart.findIndex((item) =>
+      item.product._id.equals(product._id)
+    );
+    if (productIndex !== -1) {
+      if (user.cart[productIndex].quantity > 0) {
+        user.cart = user.cart.filter(
+          (item) => !item.product._id.equals(product._id)
+        );
       }
     }
 
@@ -205,6 +234,15 @@ export const updateUserAddress = async (req, res, next) => {
     await user.save();
 
     res.status(200).json(address);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const deleteUserAddress = async (req, res, next) => {
+  try {
+
+    
   } catch (err) {
     next(err);
   }
