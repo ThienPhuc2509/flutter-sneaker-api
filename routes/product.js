@@ -5,6 +5,7 @@ import {
   deleteProduct,
   getProduct,
   get,
+  randomProducts,
 } from "../controllers/productController.js";
 import { verifyAdmin } from "../middleware/verifyToken.js";
 
@@ -24,5 +25,7 @@ router.get("/find/:id", getProduct);
 
 // GET ALL
 router.get("/", get);
+
+router.get("/random-product", randomProducts);
 
 export default router;
