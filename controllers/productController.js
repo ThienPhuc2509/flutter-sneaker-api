@@ -66,7 +66,6 @@ export const get = async (req, res, next) => {
         brand: {
           $in: [qBrand],
         },
-        
       });
     } else {
       products = await Product.find();
@@ -75,5 +74,27 @@ export const get = async (req, res, next) => {
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err);
+  }
+};
+
+export const randomProducts = async (req, res, next) => {
+  try {
+    // Lấy số lượng sản phẩm có sẵn trong cơ sở dữ liệu
+    const count = await Product.countDocuments();
+
+    // Tạo pipeline cho phương thức aggregate
+    const pipeline = [
+      // Sắp xếp ngẫu nhiên các sản phẩm
+      { $sample: { size: count } },
+    ];
+
+    // Thực hiện aggregate query để lấy danh sách sản phẩm ngẫu nhiên
+    const randomProducts = await Product.aggregate(pipeline);
+
+    res.status(200).json(randomProducts);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Đã xảy ra lỗi khi lấy danh sách sản phẩm ngẫu nhiên." });
   }
 };
