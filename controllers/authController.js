@@ -29,7 +29,7 @@ export const login = async (req, res, next) => {
       })
       .populate({
         path: "favorite.product",
-        select: "title image price brand state",
+        select: "title image price brand state size",
       });
     if (!user) return next(createError(404, "User not found!"));
 
