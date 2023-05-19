@@ -80,7 +80,7 @@ export const get = async (req, res, next) => {
 export const randomProducts = async (req, res, next) => {
   try {
     const page = req.query.page || 1; // Trang hiện tại, mặc định là 1
-    const limit = 5; // Số lượng sản phẩm trên mỗi trang
+    const limit = 6; // Số lượng sản phẩm trên mỗi trang
     const count = await Product.countDocuments();
 
     // Tính toán skip (bỏ qua) và limit (giới hạn) cho aggregate pipeline
