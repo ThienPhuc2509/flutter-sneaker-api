@@ -13,6 +13,10 @@ const NotificationSchema = new Schema(
       type: String,
       require: true,
     },
+    isDelete: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

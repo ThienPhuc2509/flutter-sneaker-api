@@ -79,16 +79,23 @@ export const get = async (req, res, next) => {
 
 export const randomProducts = async (req, res, next) => {
   try {
-    // Lấy số lượng sản phẩm có sẵn trong cơ sở dữ liệu
+    const page = req.query.page || 1; // Trang hiện tại, mặc định là 1
+    const limit = 5; // Số lượng sản phẩm trên mỗi trang
     const count = await Product.countDocuments();
+
+    // Tính toán skip (bỏ qua) và limit (giới hạn) cho aggregate pipeline
+    const skip = (page - 1) * limit;
 
     // Tạo pipeline cho phương thức aggregate
     const pipeline = [
       // Sắp xếp ngẫu nhiên các sản phẩm
       { $sample: { size: count } },
+      // Bỏ qua và giới hạn số lượng sản phẩm theo trang
+      { $skip: skip },
+      { $limit: limit },
     ];
 
-    // Thực hiện aggregate query để lấy danh sách sản phẩm ngẫu nhiên
+    // Thực hiện aggregate query để lấy danh sách sản phẩm ngẫu nhiên và phân trang
     const randomProducts = await Product.aggregate(pipeline);
 
     res.status(200).json(randomProducts);
