@@ -2,17 +2,29 @@ import Order from "../models/order.js";
 import User from "../models/user.js";
 
 export const createOrder = async (req, res, next) => {
-  const newOrder = new Order(req.body);
-
+  const selectedProducts = req.body.selectedProducts; // Danh sách các sản phẩm được chọn từ client
+  const newOrder = new Order({
+    total: req.body.total,
+    shipping: req.body.shipping,
+    userId: req.body.userId,
+    products: selectedProducts,
+  });
   try {
     const populatedOrder = await newOrder.populate({
       path: "products.product",
       select: "title image price brand state",
     });
 
-    const savedOrder = await populatedOrder.save();
+    // Slice số lượng sản phẩm từ giỏ hàng của người dùng
     const userId = req.body.userId;
-    await User.findByIdAndUpdate(userId, { cart: [] });
+    const user = await User.findById(userId);
+
+    const remainingProducts = user.cart.slice(selectedProducts.length);
+    user.cart = remainingProducts;
+
+    console.log(remainingProducts);
+    await user.save();
+    const savedOrder = await populatedOrder.save();
 
     res.status(200).json(savedOrder);
   } catch (err) {

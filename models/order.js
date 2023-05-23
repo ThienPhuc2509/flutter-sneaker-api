@@ -18,7 +18,6 @@ const OrderSchema = new Schema(
         },
       },
     ],
-    // subtotal: { type: Number, required: true }, // phí ship
     total: { type: Number, required: true },
     shipping: { type: Object, required: true },
   },
