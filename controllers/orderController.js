@@ -2,13 +2,15 @@ import Order from "../models/order.js";
 import User from "../models/user.js";
 
 export const createOrder = async (req, res, next) => {
-  const selectedProducts = req.body.selectedProducts; // Danh sách các sản phẩm được chọn từ client
+  const selectedProducts = req.body.selectedProducts;
+
   const newOrder = new Order({
     total: req.body.total,
     shipping: req.body.shipping,
     userId: req.body.userId,
     products: selectedProducts,
   });
+  
   try {
     const populatedOrder = await newOrder.populate({
       path: "products.product",
@@ -22,12 +24,12 @@ export const createOrder = async (req, res, next) => {
     const remainingProducts = user.cart.slice(selectedProducts.length);
     user.cart = remainingProducts;
 
-    console.log(remainingProducts);
     await user.save();
     const savedOrder = await populatedOrder.save();
 
     res.status(200).json(savedOrder);
   } catch (err) {
+    console.log(err);
     next(err);
   }
 };
