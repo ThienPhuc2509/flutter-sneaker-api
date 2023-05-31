@@ -9,6 +9,7 @@ import userRoute from "./routes/user.js";
 import authRoute from "./routes/auth.js";
 import orderRoute from "./routes/order.js";
 import notificationRoute from "./routes/notification.js";
+import stripeRoute from "./routes/stripe.js";
 
 const app = express();
 dotenv.config();
@@ -33,6 +34,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/order", orderRoute);
 app.use("/api/notification", notificationRoute);
+app.use("/api/stripe", stripeRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

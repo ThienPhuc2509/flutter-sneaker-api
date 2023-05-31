@@ -10,7 +10,7 @@ export const createOrder = async (req, res, next) => {
     userId: req.body.userId,
     products: selectedProducts,
   });
-  
+
   try {
     const populatedOrder = await newOrder.populate({
       path: "products.product",
