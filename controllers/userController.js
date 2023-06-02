@@ -22,7 +22,6 @@ export const updateUser = async (req, res, next) => {
     );
 
     res.status(200).json(updatedUser);
-    console.log(updatedUser);
   } catch (err) {
     next(err);
   }
@@ -241,8 +240,6 @@ export const updateUserAddress = async (req, res, next) => {
 
 export const deleteUserAddress = async (req, res, next) => {
   try {
-
-    
   } catch (err) {
     next(err);
   }

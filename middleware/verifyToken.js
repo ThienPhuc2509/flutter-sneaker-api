@@ -3,8 +3,7 @@ import { createError } from "../utils/error.js";
 
 export const verifyToken = (req, res, next) => {
   const token = req.header("x-auth-token");
-  console.log(token);
-  if (!token) {
+=  if (!token) {
     return next(createError(401, "You are not authenticated!"));
   }
 

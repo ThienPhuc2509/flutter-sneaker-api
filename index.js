@@ -59,7 +59,6 @@ const storage = multer.diskStorage({
     cb(null, "public/images");
   },
   filename: (req, file, cb) => {
-    // console.log(req);
     cb(null, file.originalname);
   },
 });
@@ -67,7 +66,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 app.post("/api/upload", upload.single("file"), (req, res) => {
   try {
-    console.log(req);
     return res.status(200).json(req.file.filename);
   } catch (error) {
     console.error(error);
