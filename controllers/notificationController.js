@@ -39,3 +39,26 @@ export const get = async (req, res, next) => {
     res.status(501).json(err);
   }
 };
+
+export const deleteAllNotifications = async (req, res, next) => {
+  try {
+    await Notification.deleteMany();
+    res.status(200).json({ message: "All notifications have been deleted." });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+export const deleteNotificationById = async (req, res, next) => {
+  try {
+    const notification = await Notification.findByIdAndDelete(req.params.id);
+
+    if (!notification) {
+      return res.status(404).json({ message: "Notification not found." });
+    }
+
+    res.status(200).json({ message: "Notification has been deleted." });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};

@@ -4,6 +4,8 @@ import {
   getUserNotification,
   getNotification,
   get,
+  deleteNotificationById,
+  deleteAllNotifications,
 } from "../controllers/notificationController.js";
 
 const router = express.Router();
@@ -11,5 +13,6 @@ const router = express.Router();
 router.post("/", createNotification);
 router.get("/find/:id", getUserNotification);
 router.get("/", get);
-
+router.delete("/:id", deleteNotificationById);
+router.delete("/", deleteAllNotifications);
 export default router;
