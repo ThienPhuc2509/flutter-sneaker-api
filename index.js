@@ -10,6 +10,9 @@ import authRoute from "./routes/auth.js";
 import orderRoute from "./routes/order.js";
 import notificationRoute from "./routes/notification.js";
 import stripeRoute from "./routes/stripe.js";
+import path from "path";
+import { fileURLToPath } from "url";
+import multer from "multer";
 
 const app = express();
 dotenv.config();
@@ -29,6 +32,10 @@ app.use(express.json());
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cookieParser());
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use("/images", express.static(path.join(__dirname, "public/images")));
 app.use("/api/product", productRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
@@ -47,6 +54,25 @@ app.use((err, req, res, next) => {
   });
 });
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/images");
+  },
+  filename: (req, file, cb) => {
+    // console.log(req);
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  try {
+    console.log(req);
+    return res.status(200).json(req.file.filename);
+  } catch (error) {
+    console.error(error);
+  }
+});
 app.listen(process.env.PORT, () => {
   connect();
   console.log(`Example app listening on port ${process.env.PORT}`);
